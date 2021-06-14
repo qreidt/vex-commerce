@@ -1,9 +1,17 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	HttpCode,
+	Post,
+	Res,
+	UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dtos/RegisterDto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/User';
+import { LoginDto } from './dtos/LoginDto';
 
 @Controller('/auth')
 export class AuthController {
@@ -27,5 +35,30 @@ export class AuthController {
 		delete user.password;
 
 		return user;
+	}
+
+	@Post('/login')
+	@HttpCode(200)
+	async login(@Body() credentials: LoginDto) {
+		const user = await this.user_repository.findOneOrFail({
+			email: credentials.email,
+		});
+
+		const is_authenticated = await this.auth_service.check(
+			user,
+			credentials.password,
+		);
+
+		if (!is_authenticated) {
+			throw new UnauthorizedException();
+		}
+
+		const token = this.auth_service.generateNewToken({
+			user_id: user.id,
+		});
+
+		delete user.password;
+
+		return { user, token };
 	}
 }
