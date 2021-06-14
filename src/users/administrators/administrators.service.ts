@@ -47,7 +47,13 @@ export class AdministratorsService {
 	}
 
 	async update(id: number, data: UpdateAdministratorDto) {
-		return `This action updates a #${id} administrator`;
+		let user = await this.findOne(id);
+
+		user = this.user_repository.merge(user, data);
+
+		user = await this.user_repository.save(user);
+
+		return user.toJSON();
 	}
 
 	async remove(id: number) {
