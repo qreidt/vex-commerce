@@ -21,7 +21,16 @@ export class AdministratorsService {
 	}
 
 	async create(data: CreateAdministratorDto) {
-		return 'This action adds a new administrator';
+		let user = this.user_repository.merge(new UserEntity(), {
+			...data,
+			type: UserEntity.TYPES.administrator,
+		});
+
+		user.password = await UserEntity.hashPassword(user.password);
+
+		user = await this.user_repository.save(user);
+
+		return user.toJSON();
 	}
 
 	async findOne(id: number): Promise<UserEntity> {

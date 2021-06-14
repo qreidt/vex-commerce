@@ -15,7 +15,8 @@ import { LoginDto } from './dtos/login.dto';
 @Controller('/auth')
 export class AuthController {
 	constructor(
-		@InjectRepository(UserEntity) readonly user_repository: Repository<UserEntity>,
+		@InjectRepository(UserEntity)
+		readonly user_repository: Repository<UserEntity>,
 		private auth_service: AuthService,
 	) {}
 
@@ -24,16 +25,14 @@ export class AuthController {
 	async register(@Body() body: RegisterDto) {
 		let user = this.user_repository.merge(new UserEntity(), {
 			...body,
-			type: UserEntity.TYPES.user,
+			type: UserEntity.TYPES.client,
 		});
 
-		user.password = await this.auth_service.hashPassword(user.password);
+		user.password = await UserEntity.hashPassword(user.password);
 
 		user = await this.user_repository.save(user);
 
-		delete user.password;
-
-		return user;
+		return user.toJSON();
 	}
 
 	@Post('/login')
@@ -62,6 +61,6 @@ export class AuthController {
 
 		delete user.password;
 
-		return { user, token };
+		return { user: user.toJSON(), token };
 	}
 }

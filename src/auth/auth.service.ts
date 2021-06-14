@@ -11,10 +11,6 @@ export class AuthService {
 		return this.jwt_service.sign(payload);
 	}
 
-	async hashPassword(password: string): Promise<string> {
-		return await bcrypt.hash(password, 12);
-	}
-
 	async check(
 		user: UserEntity,
 		password: string,
