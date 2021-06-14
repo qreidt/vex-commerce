@@ -1,9 +1,4 @@
-import {
-	MigrationInterface,
-	QueryRunner,
-	Table,
-	TableIndex,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableIndex } from 'typeorm';
 
 export class createUsersTable1623526534508 implements MigrationInterface {
 	private table_name = 'users';
@@ -21,15 +16,15 @@ export class createUsersTable1623526534508 implements MigrationInterface {
 						generationStrategy: 'increment',
 					},
 					{
+						name: 'name',
+						type: 'varchar',
+					},
+					{
 						name: 'email',
 						type: 'varchar',
 					},
 					{
 						name: 'password',
-						type: 'varchar',
-					},
-					{
-						name: 'name',
 						type: 'varchar',
 					},
 					{
