@@ -56,7 +56,11 @@ export class AdministratorsService {
 		return user.toJSON();
 	}
 
-	async remove(id: number) {
-		return `This action removes a #${id} administrator`;
+	async remove(id: number): Promise<void> {
+		const user = await this.findOne(id);
+
+		await this.user_repository.delete({
+			id: user.id,
+		});
 	}
 }
