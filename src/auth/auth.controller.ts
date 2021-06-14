@@ -3,7 +3,6 @@ import {
 	Controller,
 	HttpCode,
 	Post,
-	Res,
 	UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -40,9 +39,13 @@ export class AuthController {
 	@Post('/login')
 	@HttpCode(200)
 	async login(@Body() credentials: LoginDto) {
-		const user = await this.user_repository.findOneOrFail({
+		const user = await this.user_repository.findOne({
 			email: credentials.email,
 		});
+
+		if (!user) {
+			throw new UnauthorizedException();
+		}
 
 		const is_authenticated = await this.auth_service.check(
 			user,

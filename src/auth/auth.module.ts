@@ -8,8 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/User';
 
 @Module({
-	controllers: [AuthController],
-	providers: [AuthService, AuthStrategy],
 	imports: [
 		TypeOrmModule.forFeature([User]),
 		JwtModule.registerAsync({
@@ -21,5 +19,7 @@ import { User } from '../entities/User';
 			}),
 		}),
 	],
+	providers: [AuthService, AuthStrategy],
+	controllers: [AuthController],
 })
 export class AuthModule {}
