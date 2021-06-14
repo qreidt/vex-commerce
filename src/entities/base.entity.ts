@@ -37,4 +37,8 @@ export class BaseEntity {
 	updateTimestamp(): void {
 		this.updated_at = DateTime.now().toJSDate();
 	}
+
+	toJSON() {
+		return Object.assign({}, this);
+	}
 }

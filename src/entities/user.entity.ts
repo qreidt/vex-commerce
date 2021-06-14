@@ -1,11 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from './BaseEntity';
+import { BaseEntity } from './base.entity';
+import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'users' })
-export class User extends BaseEntity {
+export class UserEntity extends BaseEntity {
 	public static readonly TYPES = {
 		administrator: 1,
-		user: 2,
+		client: 2,
 	};
 
 	@PrimaryGeneratedColumn()
@@ -22,4 +23,16 @@ export class User extends BaseEntity {
 
 	@Column()
 	public type: number;
+
+	static async hashPassword(password) {
+		return await bcrypt.hash(password, 12);
+	}
+
+	toJSON() {
+		const user = Object.assign({}, this);
+
+		delete user.password;
+
+		return user;
+	}
 }
