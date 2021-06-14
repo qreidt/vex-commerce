@@ -6,25 +6,25 @@ import {
 	UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dtos/RegisterDto';
+import { RegisterDto } from './dtos/register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../entities/User';
-import { LoginDto } from './dtos/LoginDto';
+import { UserEntity } from '../entities/user.entity';
+import { LoginDto } from './dtos/login.dto';
 
 @Controller('/auth')
 export class AuthController {
 	constructor(
-		@InjectRepository(User) readonly user_repository: Repository<User>,
+		@InjectRepository(UserEntity) readonly user_repository: Repository<UserEntity>,
 		private auth_service: AuthService,
 	) {}
 
 	@Post('/register')
 	@HttpCode(200)
 	async register(@Body() body: RegisterDto) {
-		let user = this.user_repository.merge(new User(), {
+		let user = this.user_repository.merge(new UserEntity(), {
 			...body,
-			type: User.TYPES.user,
+			type: UserEntity.TYPES.user,
 		});
 
 		user.password = await this.auth_service.hashPassword(user.password);

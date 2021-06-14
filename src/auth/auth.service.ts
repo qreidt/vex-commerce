@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities/User';
+import { UserEntity } from '../entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -16,7 +16,7 @@ export class AuthService {
 	}
 
 	async check(
-		user: User,
+		user: UserEntity,
 		password: string,
 		options: object = {},
 	): Promise<boolean> {
