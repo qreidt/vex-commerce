@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
-	public static readonly TYPES = {
+	public static TYPES = {
 		administrator: 1,
 		client: 2,
 	};
