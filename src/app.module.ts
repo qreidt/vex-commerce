@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import AppController from './app.controller';
+import MySQLDatabaseProviderModule from './providers/database/mysql/provider.module';
+import AppConfigModule from './config/app/config.module';
+import DatabaseConfigModule from './config/database/config.module';
+import AuthenticationModule from './app/authentication/auth.module';
+import UsersModule from './app/users/users.module';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot(),
-		TypeOrmModule.forRoot(),
-		AuthModule,
+		AppConfigModule,
+		DatabaseConfigModule,
+		MySQLDatabaseProviderModule,
+		AuthenticationModule,
 		UsersModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
 })
 export class AppModule {}

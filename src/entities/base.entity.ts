@@ -4,21 +4,19 @@ import {
 	BeforeInsert,
 	BeforeUpdate,
 	CreateDateColumn,
-	Entity,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { DateTime } from 'luxon';
 
-@Entity()
-export class BaseEntity {
-	@PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
+export default class BaseEntity {
+	@PrimaryGeneratedColumn({ name: 'id', type: 'bigint', unsigned: true })
 	public id?: number;
 
-	@CreateDateColumn({ name: 'created_at' })
+	@CreateDateColumn({ name: 'created_at', type: 'timestamp' })
 	public created_at?: Date | DateTime;
 
-	@UpdateDateColumn({ name: 'updated_at' })
+	@UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
 	public updated_at?: Date | DateTime;
 
 	@AfterInsert()
@@ -36,9 +34,5 @@ export class BaseEntity {
 	@BeforeUpdate()
 	updateTimestamp(): void {
 		this.updated_at = DateTime.now().toJSDate();
-	}
-
-	toJSON() {
-		return Object.assign({}, this);
 	}
 }

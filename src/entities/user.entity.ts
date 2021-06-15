@@ -1,38 +1,38 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { Column, Entity } from 'typeorm';
+import BaseEntity from './base.entity';
 import * as bcrypt from 'bcrypt';
+import { Exclude, Transform } from 'class-transformer';
 
 @Entity({ name: 'users' })
-export class UserEntity extends BaseEntity {
+export default class UserEntity extends BaseEntity {
 	public static TYPES = {
 		administrator: 1,
 		client: 2,
 	};
 
-	@PrimaryGeneratedColumn()
-	public id?: number;
+	public static get TypesText() {
+		const swap = Object.entries(UserEntity.TYPES).map(([a, b]) => ({
+			[b]: a,
+		}));
 
-	@Column()
+		return Object.assign({}, ...swap);
+	}
+
+	@Column({ name: 'email', type: 'varchar' })
 	public email: string;
 
-	@Column()
+	@Column({ name: 'name', type: 'varchar' })
 	public name: string;
 
-	@Column()
+	@Exclude()
+	@Column({ name: 'password', type: 'varchar' })
 	public password: string;
 
-	@Column()
+	@Transform(({ value }) => UserEntity.TypesText[value])
+	@Column({ name: 'type', type: 'tinyint' })
 	public type: number;
 
 	static async hashPassword(password) {
 		return await bcrypt.hash(password, 12);
-	}
-
-	toJSON() {
-		const user = Object.assign({}, this);
-
-		delete user.password;
-
-		return user;
 	}
 }
