@@ -6,7 +6,10 @@ import {
 	Param,
 	Delete,
 	Patch,
-	UseGuards, ClassSerializerInterceptor, UseInterceptors, HttpCode,
+	UseGuards,
+	ClassSerializerInterceptor,
+	UseInterceptors,
+	HttpCode,
 } from '@nestjs/common';
 import { AdministratorsService } from './administrators.service';
 import { CreateAdministratorDto } from './dto/create-administrator.dto';

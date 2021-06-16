@@ -2,14 +2,15 @@ import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import AppController from '../src/app.controller';
-import MySQLDatabaseProviderModule from '../src/providers/database/mysql/provider.module';
+import AppConfigModule from '../src/config/config.module';
+import MySQLDatabaseProviderModule from '../src/providers/db/mysql/provider.module';
 
 describe('AppController (e2e)', () => {
 	let app: INestApplication;
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [MySQLDatabaseProviderModule],
+			imports: [AppConfigModule, MySQLDatabaseProviderModule],
 			controllers: [AppController],
 		}).compile();
 

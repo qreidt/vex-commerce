@@ -19,7 +19,7 @@ export class AdministratorsService {
 	}
 
 	async create(data: CreateAdministratorDto) {
-		let user = this.user_repository.merge(new UserEntity(), {
+		const user = this.user_repository.merge(new UserEntity(), {
 			...data,
 			type: UserEntity.TYPES.administrator,
 		});

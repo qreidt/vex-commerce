@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import UserEntity from '../../entities/user.entity';
-import MySQLDatabaseProviderModule from '../../providers/database/mysql/provider.module';
+import MySQLDatabaseProviderModule from '../../providers/db/mysql/provider.module';
 
 @Module({
 	imports: [

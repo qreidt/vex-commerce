@@ -4,7 +4,8 @@ import {
 	Controller,
 	HttpCode,
 	Post,
-	UnauthorizedException, UseInterceptors,
+	UnauthorizedException,
+	UseInterceptors,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
