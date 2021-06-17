@@ -25,15 +25,8 @@ export default class AuthenticationController {
 	@Post('/register')
 	@HttpCode(200)
 	@UseInterceptors(ClassSerializerInterceptor)
-	async register(@Body() data: RegisterDto) {
-		const user = this.user_repository.merge(new UserEntity(), {
-			...data,
-			type: UserEntity.TYPES.client,
-		});
-
-		user.password = await UserEntity.hashPassword(user.password);
-
-		return await this.user_repository.save(user);
+	register(@Body() data: RegisterDto) {
+		return this.auth_service.createClient(data);
 	}
 
 	@Post('/login')

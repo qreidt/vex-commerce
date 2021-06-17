@@ -4,17 +4,15 @@ import * as joi from '@hapi/joi';
 import { app, database } from './configuration';
 import AppConfigService from './config.service';
 
-const env_file = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
-
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: env_file,
 			load: [app, database],
 			validationSchema: joi.object({
 				name: joi.string().default('Commerce APP'),
 				port: joi.number().default(8000),
+				key: joi.string(),
 				env: joi
 					.string()
 					.valid('development', 'production', 'test')
@@ -26,6 +24,8 @@ const env_file = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
 				db_pass: joi.string().default(''),
 				db_database: joi.string().default('commerce'),
 				db_logging: joi.boolean().default(false),
+				db_syncronize: joi.boolean().default(false),
+				db_dropSchema: joi.boolean().default(false),
 			}),
 		}),
 	],

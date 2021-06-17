@@ -18,7 +18,7 @@ export default class UserEntity extends BaseEntity {
 		return Object.assign({}, ...swap);
 	}
 
-	@Column({ name: 'email', type: 'varchar' })
+	@Column({ name: 'email', type: 'varchar', unique: true })
 	public email: string;
 
 	@Column({ name: 'name', type: 'varchar' })

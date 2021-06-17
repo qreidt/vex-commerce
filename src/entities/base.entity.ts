@@ -10,13 +10,13 @@ import {
 import { DateTime } from 'luxon';
 
 export default class BaseEntity {
-	@PrimaryGeneratedColumn({ name: 'id', type: 'bigint', unsigned: true })
+	@PrimaryGeneratedColumn({ name: 'id', type: 'integer', unsigned: true })
 	public id?: number;
 
-	@CreateDateColumn({ name: 'created_at', type: 'timestamp' })
+	@CreateDateColumn({ name: 'created_at', type: 'datetime' })
 	public created_at?: Date | DateTime;
 
-	@UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
+	@UpdateDateColumn({ name: 'updated_at', type: 'datetime' })
 	public updated_at?: Date | DateTime;
 
 	@AfterInsert()

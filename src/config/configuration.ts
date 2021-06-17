@@ -4,6 +4,7 @@ export const app = registerAs('app', () => ({
 	name: process.env.NAME,
 	port: process.env.PORT,
 	env: process.env.ENV,
+	key: process.env.KEY,
 }));
 
 export const database = registerAs('db.sql', () => ({
@@ -14,4 +15,6 @@ export const database = registerAs('db.sql', () => ({
 	pass: process.env.DB_PASS,
 	database: process.env.DB_DATABASE,
 	logging: process.env.DB_LOGGING,
+	db_syncronize: process.env.DB_SYNCRONIZE,
+	db_drop_schema: process.env.DB_DROP_SCHEMA,
 }));

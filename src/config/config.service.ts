@@ -17,6 +17,10 @@ export default class AppConfigService {
 		return parseInt(this.config_service.get<string>('app.port'));
 	}
 
+	get key(): string {
+		return this.config_service.get<string>('app.key');
+	}
+
 	get db_client(): string {
 		return this.config_service.get<string>('db.sql.name');
 	}
@@ -43,5 +47,13 @@ export default class AppConfigService {
 
 	get db_logging(): boolean {
 		return this.config_service.get<boolean>('db.sql.logging');
+	}
+
+	get db_syncronize(): boolean {
+		return this.config_service.get<boolean>('db.sql.db_syncronize');
+	}
+
+	get db_drop_schema(): boolean {
+		return this.config_service.get<boolean>('db.sql.db_drop_schema');
 	}
 }
