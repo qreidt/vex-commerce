@@ -1,16 +1,16 @@
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import {
 	BadRequestException,
 	Injectable,
 	NotFoundException,
 } from '@nestjs/common';
-import { CreateAdministratorDto } from './dto/create-administrator.dto';
-import { UpdateAdministratorDto } from './dto/update-administrator.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import UserEntity from '../../../entities/user/user.entity';
-import { Repository } from 'typeorm';
+import CreateAdministratorDto from './dto/create-administrator.dto';
+import UpdateAdministratorDto from './dto/update-administrator.dto';
 
 @Injectable()
-export class AdministratorsService {
+export default class AdministratorsService {
 	constructor(
 		@InjectRepository(UserEntity)
 		readonly repository: Repository<UserEntity>,

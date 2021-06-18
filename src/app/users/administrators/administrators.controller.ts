@@ -11,13 +11,13 @@ import {
 	UseInterceptors,
 	HttpCode,
 } from '@nestjs/common';
-import { AdministratorsService } from './administrators.service';
-import { CreateAdministratorDto } from './dto/create-administrator.dto';
-import { UpdateAdministratorDto } from './dto/update-administrator.dto';
-import { LocalAuthGuard } from '../../../common/guards/auth.guard';
+import AdministratorsService from './administrators.service';
+import CreateAdministratorDto from './dto/create-administrator.dto';
+import UpdateAdministratorDto from './dto/update-administrator.dto';
+import LocalAuthGuard from '../../../common/guards/auth.guard';
 
 @Controller('/administrators')
-export class AdministratorsController {
+export default class AdministratorsController {
 	constructor(
 		private readonly administrators_service: AdministratorsService,
 	) {}

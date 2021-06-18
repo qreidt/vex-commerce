@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AdministratorsService } from './administrators.service';
-import { AdministratorsController } from './administrators.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import AdministratorsService from './administrators.service';
+import AdministratorsController from './administrators.controller';
 import UserEntity from '../../../entities/user/user.entity';
 
 @Module({
@@ -9,4 +9,4 @@ import UserEntity from '../../../entities/user/user.entity';
 	controllers: [AdministratorsController],
 	providers: [AdministratorsService],
 })
-export class AdministratorsModule {}
+export default class AdministratorsModule {}

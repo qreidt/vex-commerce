@@ -1,13 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { Connection } from 'typeorm';
+import { Test, TestingModule } from '@nestjs/testing';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import Factory from '../../../entities/factories';
 import UserEntity from '../../../entities/user/user.entity';
-import { AdministratorsModule } from './administrators.module';
-import { AdministratorsService } from './administrators.service';
-import { AdministratorsController } from './administrators.controller';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { CreateAdministratorDto } from './dto/create-administrator.dto';
-import { UpdateAdministratorDto } from './dto/update-administrator.dto';
+import AdministratorsModule from './administrators.module';
+import AdministratorsService from './administrators.service';
+import AdministratorsController from './administrators.controller';
+import CreateAdministratorDto from './dto/create-administrator.dto';
+import UpdateAdministratorDto from './dto/update-administrator.dto';
 import MemoryDatabaseProviderModule from '../../../providers/db/memory/provider.module';
 
 describe('Administrators Controller', () => {
@@ -109,7 +109,7 @@ describe('Administrators Controller', () => {
 		);
 	});
 
-	test('show: should not fetch an client', async () => {
+	test('show: should not fetch a client', async () => {
 		const { id } = await service.repository.save(
 			await Factory.factory(UserEntity).make({
 				type: UserEntity.TYPES.client,

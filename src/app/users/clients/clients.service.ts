@@ -1,23 +1,23 @@
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import UserEntity from '../../../entities/user/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
 @Injectable()
-export class ClientsService {
+export default class ClientsService {
 	constructor(
 		@InjectRepository(UserEntity)
-		readonly user_repository: Repository<UserEntity>,
+		readonly repository: Repository<UserEntity>,
 	) {}
 
 	list() {
-		return this.user_repository.find({
+		return this.repository.find({
 			type: UserEntity.TYPES.client,
 		});
 	}
 
 	async findOne(id: number) {
-		const user = await this.user_repository.findOne({
+		const user = await this.repository.findOne({
 			id: id,
 			type: UserEntity.TYPES.client,
 		});
