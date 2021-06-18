@@ -8,7 +8,7 @@ import UserSeederService from './db/seeders/users/user.service';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
-	app.useGlobalPipes(new ValidationPipe());
+	app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
 	const seeder = app.get<UserSeederService>(UserSeederService);
 	await seeder.run();

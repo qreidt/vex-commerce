@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import { CreateAdministratorDto } from './dto/create-administrator.dto';
 import { UpdateAdministratorDto } from './dto/update-administrator.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,28 +13,30 @@ import { Repository } from 'typeorm';
 export class AdministratorsService {
 	constructor(
 		@InjectRepository(UserEntity)
-		readonly user_repository: Repository<UserEntity>,
+		readonly repository: Repository<UserEntity>,
 	) {}
 
 	list() {
-		return this.user_repository.find({
+		return this.repository.find({
 			type: UserEntity.TYPES.administrator,
 		});
 	}
 
 	async create(data: CreateAdministratorDto) {
-		const user = this.user_repository.merge(new UserEntity(), {
+		await this.failIfEmailExists(data.email);
+
+		const user = this.repository.merge(new UserEntity(), {
 			...data,
 			type: UserEntity.TYPES.administrator,
 		});
 
 		user.password = await UserEntity.hashPassword(user.password);
 
-		return await this.user_repository.save(user);
+		return await this.repository.save(user);
 	}
 
 	async findOne(id: number): Promise<UserEntity> {
-		const user = await this.user_repository.findOne({
+		const user = await this.repository.findOne({
 			id: id,
 			type: UserEntity.TYPES.administrator,
 		});
@@ -45,16 +51,34 @@ export class AdministratorsService {
 	async update(id: number, data: UpdateAdministratorDto) {
 		let user = await this.findOne(id);
 
-		user = this.user_repository.merge(user, data);
+		await this.failIfEmailExists(data.email);
 
-		return await this.user_repository.save(user);
+		user = this.repository.merge(user, data);
+
+		return await this.repository.save(user);
 	}
 
 	async remove(id: number): Promise<void> {
 		const user = await this.findOne(id);
 
-		await this.user_repository.delete({
+		if (!user) {
+			throw new NotFoundException();
+		}
+
+		await this.repository.delete({
 			id: user.id,
 		});
+	}
+
+	private async failIfEmailExists(email): Promise<void> {
+		const email_exists = await this.repository.findOne({ email });
+
+		if (email_exists) {
+			throw new BadRequestException({
+				status: 400,
+				errors: ['Email is Already in Use'],
+				error: 'Bad Request',
+			});
+		}
 	}
 }

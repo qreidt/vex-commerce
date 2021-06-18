@@ -18,7 +18,11 @@ export default class AuthenticationService {
 		return this.jwt_service.sign(payload);
 	}
 
-	async check(user: UserEntity, password: string, options: object = {}): Promise<boolean> {
+	async check(
+		user: UserEntity,
+		password: string,
+		options: object = {},
+	): Promise<boolean> {
 		for (const key of Object.keys(options)) {
 			if (user[key] !== options[key]) {
 				return false;

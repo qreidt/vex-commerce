@@ -18,7 +18,9 @@ import { LocalAuthGuard } from '../../../common/guards/auth.guard';
 
 @Controller('/administrators')
 export class AdministratorsController {
-	constructor(private readonly administrators_service: AdministratorsService) {}
+	constructor(
+		private readonly administrators_service: AdministratorsService,
+	) {}
 
 	@UseGuards(LocalAuthGuard)
 	@Get('/')

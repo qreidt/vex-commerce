@@ -1,4 +1,12 @@
-import { Body, ClassSerializerInterceptor, Controller, HttpCode, Post, UnauthorizedException, UseInterceptors } from '@nestjs/common';
+import {
+	Body,
+	ClassSerializerInterceptor,
+	Controller,
+	HttpCode,
+	Post,
+	UnauthorizedException,
+	UseInterceptors,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import AuthenticationService from './auth.service';
@@ -33,7 +41,10 @@ export default class AuthenticationController {
 			throw new UnauthorizedException();
 		}
 
-		const is_authenticated = await this.auth_service.check(user, credentials.password);
+		const is_authenticated = await this.auth_service.check(
+			user,
+			credentials.password,
+		);
 
 		if (!is_authenticated) {
 			throw new UnauthorizedException();

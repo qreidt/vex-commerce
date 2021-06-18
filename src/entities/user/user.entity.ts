@@ -10,7 +10,7 @@ export default class UserEntity extends BaseEntity {
 		client: 2,
 	};
 
-	public static get TypesText() {
+	public static get typesText() {
 		const swap = Object.entries(UserEntity.TYPES).map(([a, b]) => ({
 			[b]: a,
 		}));
@@ -28,7 +28,7 @@ export default class UserEntity extends BaseEntity {
 	@Column({ name: 'password', type: 'varchar' })
 	public password: string;
 
-	@Transform(({ value }) => UserEntity.TypesText[value])
+	@Transform(({ value }) => UserEntity.typesText[value])
 	@Column({ name: 'type', type: 'tinyint' })
 	public type: number;
 
