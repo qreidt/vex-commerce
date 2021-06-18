@@ -6693,6 +6693,11 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typeorm-factories@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/typeorm-factories/-/typeorm-factories-1.0.1.tgz#f41dd569c7859de1c1d8742efabc0f621701442d"
+  integrity sha512-TMipbsCOeQB3y1MuhBTkPgBhmfC9vdE12+aTN+tCmVJFw21I+wIMnhJ72XPTQUyrbamhwgn79mW9/xCHA5M3LQ==
+
 typeorm@^0.2.34:
   version "0.2.34"
   resolved "https://registry.npmjs.org/typeorm/-/typeorm-0.2.34.tgz"

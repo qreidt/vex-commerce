@@ -1,12 +1,21 @@
-import { DeepPartial } from 'typeorm';
+// import { DeepPartial } from 'typeorm';
+import * as Factory from 'typeorm-factories';
+import * as Faker from 'faker';
 import UserEntity from './user/user.entity';
-import faker from 'faker';
 
-export async function userFactory(data: DeepPartial<UserEntity>): Promise<UserEntity> {
-	return Object.assign(new UserEntity(), {
-		name: data.name ?? faker.name.findName(),
-		email: data.email ?? faker.internet.email(),
-		password: await UserEntity.hashPassword(data.password ?? faker.internet.password()),
-		type: data.type ?? faker.random.arrayElement(Object.values(UserEntity.TYPES)),
-	});
-}
+// UserFactory
+Factory.define(UserEntity, (faker: typeof Faker) => {
+	const user = new UserEntity();
+
+	user.name = faker.name.findName();
+	user.email = faker.internet.email();
+	user.type = faker.random.arrayElement(Object.values(UserEntity.TYPES));
+
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
+	user.password = UserEntity.hashPassword(faker.internet.password());
+
+	return user;
+});
+
+export default Factory;
