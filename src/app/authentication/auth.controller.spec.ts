@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import AuthenticationService from './auth.service';
 import AuthenticationController from './auth.controller';
-import UserEntity from '../../entities/user.entity';
+import UserEntity from '../../entities/user/user.entity';
 import MemoryDatabaseProviderModule from '../../providers/db/memory/provider.module';
 import LoginDto from './dtos/login.dto';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
@@ -39,9 +39,7 @@ describe('Authentication Controller', () => {
 			providers: [AuthenticationService],
 		}).compile();
 
-		controller = module.get<AuthenticationController>(
-			AuthenticationController,
-		);
+		controller = module.get<AuthenticationController>(AuthenticationController);
 
 		service = module.get<AuthenticationService>(AuthenticationService);
 
@@ -67,9 +65,7 @@ describe('Authentication Controller', () => {
 			email: 'wrong@example.com',
 		});
 
-		await expect(controller.login(login_dto)).rejects.toThrowError(
-			UnauthorizedException,
-		);
+		await expect(controller.login(login_dto)).rejects.toThrowError(UnauthorizedException);
 	});
 
 	test('returns "Unauthorized" for wrong password on login', async () => {
@@ -78,9 +74,7 @@ describe('Authentication Controller', () => {
 			password: 'wrong',
 		});
 
-		await expect(controller.login(login_dto)).rejects.toThrowError(
-			UnauthorizedException,
-		);
+		await expect(controller.login(login_dto)).rejects.toThrowError(UnauthorizedException);
 	});
 
 	test("returns the authorized user and it's token on login", async () => {
@@ -97,14 +91,10 @@ describe('Authentication Controller', () => {
 	test('fails if e-mail already exists on register', async () => {
 		await service.createClient(register_dto);
 
-		await expect(controller.register(register_dto)).rejects.toThrowError(
-			BadRequestException,
-		);
+		await expect(controller.register(register_dto)).rejects.toThrowError(BadRequestException);
 	});
 
 	test('creates a new user', async () => {
-		await expect(controller.register(register_dto)).resolves.toEqual(
-			expect.any(UserEntity),
-		);
+		await expect(controller.register(register_dto)).resolves.toEqual(expect.any(UserEntity));
 	});
 });

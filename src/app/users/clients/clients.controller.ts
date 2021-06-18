@@ -1,12 +1,4 @@
-import {
-	ClassSerializerInterceptor,
-	Controller,
-	Get,
-	HttpCode,
-	Param,
-	UseGuards,
-	UseInterceptors,
-} from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, HttpCode, Param, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { LocalAuthGuard } from '../../../common/guards/auth.guard';
 

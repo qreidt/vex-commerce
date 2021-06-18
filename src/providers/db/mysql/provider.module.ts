@@ -8,6 +8,7 @@ import AppConfigModule from '../../../config/config.module';
 	imports: [
 		TypeOrmModule.forRootAsync({
 			imports: [AppConfigModule],
+			inject: [AppConfigService],
 			useFactory: async (app_config: AppConfigService) => ({
 				type: app_config.db_client as DatabaseType,
 				host: app_config.db_host,
@@ -20,10 +21,9 @@ import AppConfigModule from '../../../config/config.module';
 				dropSchema: app_config.db_drop_schema,
 				keepConnectionAlive: true,
 				migrationsRun: true,
-				entities: [__dirname + '/src/entities/*.entity.{ts,js}'],
+				entities: ['src/entities/**/*.entity.{ts,js}'],
 				migrations: [],
 			}),
-			inject: [AppConfigService],
 		} as TypeOrmModuleAsyncOptions),
 	],
 })

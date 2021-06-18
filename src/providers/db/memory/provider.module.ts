@@ -13,7 +13,7 @@ import AppConfigModule from '../../../config/config.module';
 				synchronize: true,
 				dropSchema: true,
 				logging: app_config.db_logging,
-				entities: ['src/entities/*.entity.{ts,js}'],
+				entities: ['src/entities/**/*.entity.{ts,js}'],
 				keepConnectionAlive: true,
 			}),
 			inject: [AppConfigService],

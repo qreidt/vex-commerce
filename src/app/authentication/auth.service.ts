@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import UserEntity from '../../entities/user.entity';
+import UserEntity from '../../entities/user/user.entity';
 import RegisterDto from './dtos/register.dto';
 
 @Injectable()
@@ -18,11 +18,7 @@ export default class AuthenticationService {
 		return this.jwt_service.sign(payload);
 	}
 
-	async check(
-		user: UserEntity,
-		password: string,
-		options: object = {},
-	): Promise<boolean> {
+	async check(user: UserEntity, password: string, options: object = {}): Promise<boolean> {
 		for (const key of Object.keys(options)) {
 			if (user[key] !== options[key]) {
 				return false;

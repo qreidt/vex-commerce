@@ -1,12 +1,4 @@
-import {
-	AfterInsert,
-	AfterLoad,
-	BeforeInsert,
-	BeforeUpdate,
-	CreateDateColumn,
-	PrimaryGeneratedColumn,
-	UpdateDateColumn,
-} from 'typeorm';
+import { AfterInsert, AfterLoad, BeforeInsert, BeforeUpdate, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { DateTime } from 'luxon';
 
 export default class BaseEntity {
