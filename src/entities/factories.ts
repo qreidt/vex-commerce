@@ -2,6 +2,7 @@
 import * as Factory from 'typeorm-factories';
 import * as Faker from 'faker';
 import UserEntity from './user/user.entity';
+import ProductEntity from './product/product.entity';
 
 // UserFactory
 Factory.define(UserEntity, (faker: typeof Faker) => {
@@ -16,6 +17,15 @@ Factory.define(UserEntity, (faker: typeof Faker) => {
 	user.password = UserEntity.hashPassword(faker.internet.password());
 
 	return user;
+});
+
+Factory.define(ProductEntity, (faker: typeof Faker) => {
+	const product = new ProductEntity();
+
+	product.name = faker.commerce.productName();
+	product.slug = faker.helpers.slugify(product.name);
+
+	return product;
 });
 
 export default Factory;

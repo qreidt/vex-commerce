@@ -5,6 +5,7 @@ import AppConfigModule from './config/config.module';
 import AuthenticationModule from './app/authentication/auth.module';
 import MySQLDatabaseProviderModule from './providers/db/mysql/provider.module';
 import SeederModule from './db/seeders/seeder.module';
+import ProductsModule from './app/products/products.module';
 
 @Module({
 	imports: [
@@ -13,6 +14,7 @@ import SeederModule from './db/seeders/seeder.module';
 		SeederModule,
 		AuthenticationModule,
 		UsersModule,
+		ProductsModule,
 	],
 	controllers: [AppController],
 })
