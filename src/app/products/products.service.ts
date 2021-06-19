@@ -12,8 +12,8 @@ export default class ProductsService {
 		readonly repository: Repository<ProductEntity>,
 	) {}
 
-	list(): string {
-		return `This action returns all products`;
+	async list(): Promise<ProductEntity[]> {
+		return await this.repository.find();
 	}
 
 	create(data: CreateProductDto): string {
