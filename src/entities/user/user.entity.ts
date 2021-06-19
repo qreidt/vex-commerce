@@ -1,10 +1,11 @@
-import { Column, Entity } from 'typeorm';
-import BaseEntity from '../base/base.entity';
 import * as bcrypt from 'bcrypt';
+import { Column, Entity } from 'typeorm';
+import IUser from './user.interface';
+import BaseEntity from '../base/base.entity';
 import { Exclude, Transform } from 'class-transformer';
 
 @Entity({ name: 'users' })
-export default class UserEntity extends BaseEntity {
+export default class UserEntity extends BaseEntity implements IUser {
 	public static TYPES = {
 		administrator: 1,
 		client: 2,

@@ -18,8 +18,10 @@ export default class ProductsService {
 		});
 	}
 
-	create(data: CreateProductDto): string {
-		return 'This action adds a new product';
+	async create(data: CreateProductDto): Promise<ProductEntity> {
+		const a = await this.repository.save(data);
+		console.log(a);
+		return a;
 	}
 
 	findOne(id: number): string {

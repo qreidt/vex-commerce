@@ -14,10 +14,10 @@ export default class BaseEntity {
 	public id?: number;
 
 	@CreateDateColumn({ name: 'created_at', type: 'datetime' })
-	public created_at?: Date | DateTime;
+	public created_at?: Date;
 
 	@UpdateDateColumn({ name: 'updated_at', type: 'datetime' })
-	public updated_at?: Date | DateTime;
+	public updated_at?: Date;
 
 	@AfterInsert()
 	@AfterLoad()

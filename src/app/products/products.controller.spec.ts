@@ -8,7 +8,7 @@ import ProductEntity from '../../entities/product/product.entity';
 import MemoryDatabaseProviderModule from '../../providers/db/memory/provider.module';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 
-describe('ProductsController', () => {
+describe('Products Controller', () => {
 	let controller: ProductsController;
 	let service: ProductsService;
 	let repository: Repository<ProductEntity>;
@@ -56,7 +56,8 @@ describe('ProductsController', () => {
 	});
 
 	test('create: should create a new product', async () => {
-		await expect(controller.create({})).resolves.toBe(
+		const product = await Factory.factory(ProductEntity).make();
+		await expect(controller.create(product)).resolves.toEqual(
 			expect.any(ProductEntity),
 		);
 	});
@@ -78,7 +79,7 @@ describe('ProductsController', () => {
 		const { id } = await repository.save(
 			await Factory.factory(ProductEntity).make(),
 		);
-		await expect(controller.show(id)).resolves.toBe(
+		await expect(controller.show(id)).resolves.toEqual(
 			expect.any(ProductEntity),
 		);
 	});
@@ -94,9 +95,9 @@ describe('ProductsController', () => {
 			await Factory.factory(ProductEntity).make(),
 		);
 
-		const product = Factory.factory(ProductEntity).make();
+		const product = await Factory.factory(ProductEntity).make();
 
-		await expect(controller.update(id, product)).resolves.toBe(
+		await expect(controller.update(id, product)).resolves.toEqual(
 			expect.any(ProductEntity),
 		);
 	});

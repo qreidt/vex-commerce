@@ -1,8 +1,9 @@
 import { Column, DeleteDateColumn, Entity } from 'typeorm';
 import BaseEntity from '../base/base.entity';
+import IProduct from './product.interface';
 
 @Entity({ name: 'products' })
-export default class ProductEntity extends BaseEntity {
+export default class ProductEntity extends BaseEntity implements IProduct {
 	@Column({ name: 'name', type: 'varchar' })
 	public name: string;
 

@@ -1,8 +1,7 @@
 import BaseInterface from '../base/base.interface';
 
-export default interface IUser extends BaseInterface {
+export default interface IProduct extends BaseInterface {
 	name: string;
-	email: string;
-	password: string;
-	type: number;
+	slug: string;
+	deleted_at?: Date;
 }
