@@ -47,8 +47,10 @@ export default class ProductsService {
 		return await this.repository.save(product);
 	}
 
-	remove(id: number): string {
-		return `This action removes a #${id} product`;
+	async remove(id: number): Promise<void> {
+		const product = await this.findOne(id);
+
+		await this.repository.save({ ...product, deleted_at: new Date() });
 	}
 
 	private async failIfSlugExists(
