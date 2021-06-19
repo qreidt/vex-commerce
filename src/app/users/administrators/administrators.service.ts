@@ -71,9 +71,9 @@ export default class AdministratorsService {
 	}
 
 	private async failIfEmailExists(email): Promise<void> {
-		const email_exists = await this.repository.findOne({ email });
+		const exists = await this.repository.findOne({ email });
 
-		if (email_exists) {
+		if (exists) {
 			throw new BadRequestException({
 				status: 400,
 				errors: ['Email is Already in Use'],
