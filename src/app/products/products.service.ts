@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import CreateProductDto from './dto/create-product.dto';
 import UpdateProductDto from './dto/update-product.dto';
@@ -19,9 +19,8 @@ export default class ProductsService {
 	}
 
 	async create(data: CreateProductDto): Promise<ProductEntity> {
-		const a = await this.repository.save(data);
-		console.log(a);
-		return a;
+		await this.failIfSlugExists(data.slug);
+		return await this.repository.save(data);
 	}
 
 	findOne(id: number): string {
@@ -34,5 +33,17 @@ export default class ProductsService {
 
 	remove(id: number): string {
 		return `This action removes a #${id} product`;
+	}
+
+	private async failIfSlugExists(slug): Promise<void> {
+		const exists = await this.repository.findOne({ slug });
+
+		if (exists) {
+			throw new BadRequestException({
+				status: 400,
+				errors: ['Email is Already in Use'],
+				error: 'Bad Request',
+			});
+		}
 	}
 }
