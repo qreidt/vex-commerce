@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import {
 	BadRequestException,
 	Injectable,
@@ -37,16 +37,33 @@ export default class ProductsService {
 		return product;
 	}
 
-	update(id: number, data: UpdateProductDto): string {
-		return `This action updates a #${id} product`;
+	async update(id: number, data: UpdateProductDto): Promise<ProductEntity> {
+		let product = await this.findOne(id);
+
+		await this.failIfSlugExists(data.slug, id);
+
+		product = this.repository.merge(product, data);
+
+		return await this.repository.save(product);
 	}
 
 	remove(id: number): string {
 		return `This action removes a #${id} product`;
 	}
 
-	private async failIfSlugExists(slug): Promise<void> {
-		const exists = await this.repository.findOne({ slug });
+	private async failIfSlugExists(
+		slug: string,
+		ignore?: number,
+	): Promise<void> {
+		let exists;
+
+		if (ignore) {
+			exists = await this.repository.findOne({
+				where: { slug, id: Not(ignore) },
+			});
+		} else {
+			exists = await this.repository.findOne({ slug });
+		}
 
 		if (exists) {
 			throw new BadRequestException({
