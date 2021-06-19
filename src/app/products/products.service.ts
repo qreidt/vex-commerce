@@ -13,7 +13,9 @@ export default class ProductsService {
 	) {}
 
 	async list(): Promise<ProductEntity[]> {
-		return await this.repository.find();
+		return await this.repository.find({
+			deleted_at: null,
+		});
 	}
 
 	create(data: CreateProductDto): string {
