@@ -16,9 +16,6 @@ export default class VariantEntity extends BaseEntity implements IVariant {
 	@Column({ name: 'name', type: 'varchar' })
 	public name: string;
 
-	@Column({ name: 'slug', type: 'varchar', unique: true })
-	public slug: string;
-
 	@Column({ name: 'stock_amount', type: 'integer' })
 	public stock_amount: number;
 

@@ -6,40 +6,43 @@ import {
 	Patch,
 	Param,
 	Delete,
+	HttpCode,
 } from '@nestjs/common';
 import VariantsService from './variants.service';
 import CreateVariantDto from './dto/create-variant.dto';
 import UpdateVariantDto from './dto/update-variant.dto';
 
-@Controller('variants')
+@Controller('/variants')
 export default class VariantsController {
 	constructor(private readonly variantsService: VariantsService) {}
 
-	@Post()
-	create(@Body() createVariantDto: CreateVariantDto) {
-		return this.variantsService.create(createVariantDto);
+	@Get('/')
+	@HttpCode(200)
+	index() {
+		return this.variantsService.index();
 	}
 
-	@Get()
-	findAll() {
-		return this.variantsService.findAll();
+	@Post('/')
+	@HttpCode(201)
+	create(@Body() data: CreateVariantDto) {
+		return this.variantsService.create(data);
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
+	@Get('/:id')
+	@HttpCode(200)
+	show(@Param('id') id: number) {
 		return this.variantsService.findOne(+id);
 	}
 
-	@Patch(':id')
-	update(
-		@Param('id') id: string,
-		@Body() updateVariantDto: UpdateVariantDto,
-	) {
-		return this.variantsService.update(+id, updateVariantDto);
+	@Patch('/:id')
+	@HttpCode(200)
+	update(@Param('id') id: number, @Body() data: UpdateVariantDto) {
+		return this.variantsService.update(+id, data);
 	}
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
+	@Delete('/:id')
+	@HttpCode(200)
+	remove(@Param('id') id: number) {
 		return this.variantsService.remove(+id);
 	}
 }

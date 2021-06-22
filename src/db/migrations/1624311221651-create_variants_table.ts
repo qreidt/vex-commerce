@@ -26,10 +26,6 @@ export class createVariantsTable1624311221651 implements MigrationInterface {
 						type: 'bigint unsigned',
 					},
 					{
-						name: 'slug',
-						type: 'varchar',
-					},
-					{
 						name: 'stock_amount',
 						type: 'integer',
 					},
@@ -57,15 +53,6 @@ export class createVariantsTable1624311221651 implements MigrationInterface {
 						isNullable: true,
 					},
 				],
-			}),
-		);
-
-		await queryRunner.createIndex(
-			this.table_name,
-			new TableIndex({
-				name: `${this.table_name}_slug_unique`,
-				columnNames: ['slug'],
-				isUnique: true,
 			}),
 		);
 

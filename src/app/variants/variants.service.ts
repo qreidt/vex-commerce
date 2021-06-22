@@ -1,5 +1,9 @@
-import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Not, Repository } from 'typeorm';
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import CreateVariantDto from './dto/create-variant.dto';
 import UpdateVariantDto from './dto/update-variant.dto';
@@ -12,23 +16,37 @@ export default class VariantsService {
 		readonly repository: Repository<VariantEntity>,
 	) {}
 
-	create(create_dto: CreateVariantDto) {
-		return 'This action adds a new variant';
+	async index(): Promise<VariantEntity[]> {
+		return await this.repository.find({
+			deleted_at: null,
+		});
 	}
 
-	findAll() {
-		return `This action returns all variants`;
+	async create(data: CreateVariantDto): Promise<VariantEntity> {
+		return await this.repository.save(data);
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} variant`;
+	async findOne(id: number): Promise<VariantEntity> {
+		const variant = await this.repository.findOne({ id });
+
+		if (!variant) {
+			throw new NotFoundException();
+		}
+
+		return variant;
 	}
 
-	update(id: number, update_dto: UpdateVariantDto) {
-		return `This action updates a #${id} variant`;
+	async update(id: number, data: UpdateVariantDto): Promise<VariantEntity> {
+		let variant = await this.findOne(id);
+
+		variant = this.repository.merge(variant, data);
+
+		return this.repository.save(variant);
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} variant`;
+	async remove(id: number): Promise<void> {
+		const variant = await this.findOne(id);
+
+		await this.repository.save({ ...variant, deleted_at: new Date() });
 	}
 }

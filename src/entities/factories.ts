@@ -1,8 +1,9 @@
-// import { DeepPartial } from 'typeorm';
-import * as Factory from 'typeorm-factories';
 import * as Faker from 'faker';
+import * as Factory from 'typeorm-factories';
 import UserEntity from './user/user.entity';
 import ProductEntity from './product/product.entity';
+import * as faker from 'faker';
+import VariantEntity from './variant/variant.entity';
 
 // UserFactory
 Factory.define(UserEntity, (faker: typeof Faker) => {
@@ -27,5 +28,20 @@ Factory.define(ProductEntity, (faker: typeof Faker) => {
 
 	return product;
 });
+
+Factory.define(
+	VariantEntity,
+	(faker: typeof Faker, { product }: { product: ProductEntity }) => {
+		const variant = new VariantEntity();
+
+		variant.product_id = product.id;
+		variant.name = product.name;
+		variant.stock_amount = faker.datatype.number(5);
+		variant.reserved_amount = faker.datatype.number(5);
+		variant.price = Number.parseFloat(faker.commerce.price());
+
+		return variant;
+	},
+);
 
 export default Factory;
