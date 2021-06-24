@@ -34,6 +34,19 @@ export class createCategoriesTable1624323749463 implements MigrationInterface {
 						name: 'slug',
 						type: 'varchar',
 					},
+					{
+						name: 'created_at',
+						type: 'timestamp',
+					},
+					{
+						name: 'updated_at',
+						type: 'timestamp',
+					},
+					{
+						name: 'deleted_at',
+						type: 'timestamp',
+						isNullable: true,
+					},
 				],
 			}),
 		);

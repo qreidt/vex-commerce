@@ -16,6 +16,10 @@ export class createProductsTable1624138163419 implements MigrationInterface {
 						generationStrategy: 'increment',
 					},
 					{
+						name: 'name',
+						type: 'varchar',
+					},
+					{
 						name: 'slug',
 						type: 'varchar',
 					},

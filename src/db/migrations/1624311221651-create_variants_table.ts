@@ -26,6 +26,10 @@ export class createVariantsTable1624311221651 implements MigrationInterface {
 						type: 'bigint unsigned',
 					},
 					{
+						name: 'name',
+						type: 'varchar',
+					},
+					{
 						name: 'stock_amount',
 						type: 'integer',
 					},

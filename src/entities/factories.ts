@@ -2,8 +2,8 @@ import * as Faker from 'faker';
 import * as Factory from 'typeorm-factories';
 import UserEntity from './user/user.entity';
 import ProductEntity from './product/product.entity';
-import * as faker from 'faker';
 import VariantEntity from './variant/variant.entity';
+import CategoryEntity from './category/category.entity';
 
 // UserFactory
 Factory.define(UserEntity, (faker: typeof Faker) => {
@@ -24,7 +24,7 @@ Factory.define(ProductEntity, (faker: typeof Faker) => {
 	const product = new ProductEntity();
 
 	product.name = faker.commerce.productName();
-	product.slug = faker.helpers.slugify(product.name);
+	product.slug = faker.helpers.slugify(product.name.toLowerCase());
 
 	return product;
 });
@@ -43,5 +43,14 @@ Factory.define(
 		return variant;
 	},
 );
+
+Factory.define(CategoryEntity, (faker: typeof Faker) => {
+	const category = new CategoryEntity();
+
+	category.name = faker.commerce.department();
+	category.slug = faker.helpers.slugify(category.name.toLowerCase());
+
+	return category;
+});
 
 export default Factory;

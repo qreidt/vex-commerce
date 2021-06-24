@@ -10,10 +10,10 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 	app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
+	const app_config = app.get<AppConfigService>(AppConfigService);
+
 	const seeder = app.get<UserSeederService>(UserSeederService);
 	await seeder.run();
-
-	const app_config = app.get<AppConfigService>(AppConfigService);
 
 	await app.listen(app_config.port);
 }

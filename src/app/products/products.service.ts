@@ -70,7 +70,7 @@ export default class ProductsService {
 		if (exists) {
 			throw new BadRequestException({
 				status: 400,
-				errors: ['Email is Already in Use'],
+				errors: ['Slug is Already in Use'],
 				error: 'Bad Request',
 			});
 		}
