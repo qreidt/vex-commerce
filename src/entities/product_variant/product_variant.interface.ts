@@ -1,6 +1,6 @@
 import BaseInterface from '../base/base.interface';
 
-export default interface IVariant extends BaseInterface {
+export default interface IProductVariant extends BaseInterface {
 	product_id: number;
 	name: string;
 	stock_amount: number;

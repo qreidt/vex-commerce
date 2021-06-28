@@ -1,28 +1,30 @@
 import { Connection, Repository } from 'typeorm';
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
-import Factory from '../../entities/factories';
-import VariantsModule from './variants.module';
-import VariantsService from './variants.service';
-import VariantsController from './variants.controller';
-import VariantEntity from '../../entities/variant/variant.entity';
-import ProductEntity from '../../entities/product/product.entity';
-import MemoryDatabaseProviderModule from '../../providers/db/memory/provider.module';
+import Factory from '../../../entities/factories';
+import ProductVariantsModule from './product_variants.module';
+import ProductVariantsService from './product_variants.service';
+import ProductVariantsController from './product_variants.controller';
+import VariantEntity from '../../../entities/product_variant/product_variant.entity';
+import ProductEntity from '../../../entities/product/product.entity';
+import MemoryDatabaseProviderModule from '../../../providers/db/memory/provider.module';
 
 describe('Variants Controller', () => {
-	let controller: VariantsController;
-	let service: VariantsService;
+	let controller: ProductVariantsController;
+	let service: ProductVariantsService;
 	let repository: Repository<VariantEntity>;
 	let product_repository: Repository<ProductEntity>;
 	let connection: Connection;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
-			imports: [MemoryDatabaseProviderModule, VariantsModule],
+			imports: [MemoryDatabaseProviderModule, ProductVariantsModule],
 		}).compile();
 
-		controller = module.get<VariantsController>(VariantsController);
-		service = module.get<VariantsService>(VariantsService);
+		controller = module.get<ProductVariantsController>(
+			ProductVariantsController,
+		);
+		service = module.get<ProductVariantsService>(ProductVariantsService);
 		repository = service.repository;
 		connection = module.get<Connection>(Connection);
 
@@ -77,7 +79,7 @@ describe('Variants Controller', () => {
 		await expect(controller.index()).resolves.toHaveLength(5);
 	});
 
-	test('create: should create a new variant', async () => {
+	test('create: should create a new product_variant', async () => {
 		const product = await product_repository.save(
 			await Factory.factory(ProductEntity).make(),
 		);
@@ -91,7 +93,7 @@ describe('Variants Controller', () => {
 		);
 	});
 
-	test('show: should fetch a variant', async () => {
+	test('show: should fetch a product_variant', async () => {
 		const product = await product_repository.save(
 			await Factory.factory(ProductEntity).make(),
 		);
@@ -105,13 +107,13 @@ describe('Variants Controller', () => {
 		);
 	});
 
-	test('show: throw "NotFound" if the variant doesnt exist', async () => {
+	test('show: throw "NotFound" if the product_variant doesnt exist', async () => {
 		await expect(controller.show(0)).rejects.toThrowError(
 			NotFoundException,
 		);
 	});
 
-	test('update: should update a variant', async () => {
+	test('update: should update a product_variant', async () => {
 		const product = await product_repository.save(
 			await Factory.factory(ProductEntity).make(),
 		);
@@ -129,13 +131,13 @@ describe('Variants Controller', () => {
 		);
 	});
 
-	test('update: throw "NotFound" if the variant doesnt exist', async () => {
+	test('update: throw "NotFound" if the product_variant doesnt exist', async () => {
 		await expect(controller.show(0)).rejects.toThrowError(
 			NotFoundException,
 		);
 	});
 
-	test('archive: should archive a variant', async () => {
+	test('archive: should archive a product_variant', async () => {
 		const product = await product_repository.save(
 			await Factory.factory(ProductEntity).make(),
 		);
@@ -151,7 +153,7 @@ describe('Variants Controller', () => {
 		);
 	});
 
-	test('archive: throw "NotFound" if the variant doesnt exist', async () => {
+	test('archive: throw "NotFound" if the product_variant doesnt exist', async () => {
 		await expect(controller.remove(0)).rejects.toThrowError(
 			NotFoundException,
 		);

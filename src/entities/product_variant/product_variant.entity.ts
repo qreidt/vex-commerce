@@ -6,11 +6,14 @@ import {
 	ManyToOne,
 } from 'typeorm';
 import BaseEntity from '../base/base.entity';
-import IVariant from './variant.interface';
+import IVariant from './product_variant.interface';
 import ProductEntity from '../product/product.entity';
 
-@Entity({ name: 'variants' })
-export default class VariantEntity extends BaseEntity implements IVariant {
+@Entity({ name: 'product_variants' })
+export default class ProductVariantEntity
+	extends BaseEntity
+	implements IVariant
+{
 	public product_id: number;
 
 	@Column({ name: 'name', type: 'varchar' })

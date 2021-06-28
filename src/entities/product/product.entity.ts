@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import BaseEntity from '../base/base.entity';
 import IProduct from './product.interface';
-import VariantEntity from '../variant/variant.entity';
+import VariantEntity from '../product_variant/product_variant.entity';
 import CategoryEntity from '../category/category.entity';
 
 @Entity({ name: 'products' })

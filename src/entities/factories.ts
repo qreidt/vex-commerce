@@ -2,7 +2,7 @@ import * as Faker from 'faker';
 import * as Factory from 'typeorm-factories';
 import UserEntity from './user/user.entity';
 import ProductEntity from './product/product.entity';
-import VariantEntity from './variant/variant.entity';
+import VariantEntity from './product_variant/product_variant.entity';
 import CategoryEntity from './category/category.entity';
 
 // UserFactory

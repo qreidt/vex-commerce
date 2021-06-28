@@ -11,14 +11,14 @@ import {
 	UseInterceptors,
 	ClassSerializerInterceptor,
 } from '@nestjs/common';
-import VariantsService from './variants.service';
 import CreateVariantDto from './dto/create-variant.dto';
 import UpdateVariantDto from './dto/update-variant.dto';
-import LocalAuthGuard from '../../common/guards/auth.guard';
+import LocalAuthGuard from '../../../common/guards/auth.guard';
+import ProductVariantsService from './product_variants.service';
 
 @Controller('/variants')
-export default class VariantsController {
-	constructor(private readonly variantsService: VariantsService) {}
+export default class ProductVariantsController {
+	constructor(private readonly variantsService: ProductVariantsService) {}
 
 	@UseGuards(LocalAuthGuard)
 	@Get('/')

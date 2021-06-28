@@ -1,16 +1,12 @@
-import { Not, Repository } from 'typeorm';
-import {
-	BadRequestException,
-	Injectable,
-	NotFoundException,
-} from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import CreateVariantDto from './dto/create-variant.dto';
 import UpdateVariantDto from './dto/update-variant.dto';
-import VariantEntity from '../../entities/variant/variant.entity';
+import VariantEntity from '../../../entities/product_variant/product_variant.entity';
 
 @Injectable()
-export default class VariantsService {
+export default class ProductVariantsService {
 	constructor(
 		@InjectRepository(VariantEntity)
 		readonly repository: Repository<VariantEntity>,

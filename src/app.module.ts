@@ -4,7 +4,7 @@ import UsersModule from './app/users/users.module';
 import AppConfigModule from './config/config.module';
 import SeederModule from './db/seeders/seeder.module';
 import ProductsModule from './app/products/products.module';
-import VariantsModule from './app/variants/variants.module';
+import ProductVariantsModule from './app/products/variants/ProductVariants.module';
 import CategoriesModule from './app/categories/categories.module';
 import AuthenticationModule from './app/authentication/auth.module';
 import MySQLDatabaseProviderModule from './providers/db/mysql/provider.module';
@@ -17,7 +17,7 @@ import MySQLDatabaseProviderModule from './providers/db/mysql/provider.module';
 		AuthenticationModule,
 		UsersModule,
 		ProductsModule,
-		VariantsModule,
+		ProductVariantsModule,
 		CategoriesModule,
 	],
 	controllers: [AppController],
